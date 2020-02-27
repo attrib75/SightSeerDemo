@@ -25,7 +25,7 @@
     /*begin image slider style*/
 
     .ImageSlider {
-        width: 350px;
+        width: 300px;
         margin-top: -30px;
         padding-left: 15px;
         padding-bottom: 0px;
@@ -63,33 +63,31 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="lead">Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></p>
-                <p>
+                <p class="small">
                     This site demonstrates using Azure Maps with the Bing Web Search API from Azure Cognitive Services.
                     In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
-                    through the stops, the app queries the Bing Web Search to return information about the stop, which includes
-                    web results and images.
+                    through the stops, the app queries the Bing Web Search API to return information about the stop, which includes
+                    web results and images. It also highlights the stop on the map
                     Check out the accompanying blog post
                     <a href="http://www.patrickgoode.com">https://www.patrickgoode.com</a>
                 </p>
             </div>
         </div>
+        <hr style="margin-top: 0px;" />
         <div class="row">
             <div class="col-md-12">
-                <input type="button" class="btn-primary" value="Next Stop" id="NextStopBtn" />
+                <input type="button" class="btn btn-primary btn-lg" value="Next Stop" id="NextStopBtn" />
             </div>
         </div>
         <br />
         <div class="row">
             <div class="col-md-5">
                 <!-- Tour Stop Info -->
-                <div class="item row">
-                    <div class="desc col-md-8 col-12">
-                        <h5 class="text-bold title" id="tourStopName">Chicago Pizza</h5>
-                        <span id="tourStopAddress"> 909 E Wilson St, Batavia, IL, 60510</span>
-                        <br><a href="undefined" class="arrowLink">See more on Bing</a>
-                    </div>
-                    <hr>
-                </div>
+
+                <h3 class="text-bold title" id="tourStopName">
+                </h3>
+                <span id="tourStopAddress"> </span>
+                <br><a href="#" class="arrowLink">See more on Bing</a>
             </div>
             <div class="col-md-5">
                 <div class="row ImageSlider ">
@@ -201,7 +199,8 @@
             item: 1,
             loop:true,
             slideMargin: 0,
-            thumbItem: 9
+           thumbItem: 9,
+
         });
        $("#spinner").hide();
           $.ajax({
@@ -213,6 +212,9 @@
                 success: function (result) {
                     TourStops  = result;
                     GetMap();
+                    $("#tourStopName").text(TourStops[0].name);
+                    $("#tourStopAddress").text(TourStops[0].address);
+
                 },
                 failure: function(response) {
                     alert(response.d);
@@ -222,8 +224,13 @@
     });
 
     $("#NextStopBtn").click(function () {
-
+        CurrentTourStop++;
+        if (CurrentTourStop > 4) {
+            CurrentTourStop = 0;
+        }
         var thisTourStop = TourStops[CurrentTourStop];
+          $("#tourStopName").text(thisTourStop.name);
+          $("#tourStopAddress").text(thisTourStop.address);
 
     });
 
