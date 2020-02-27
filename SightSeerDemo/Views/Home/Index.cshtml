@@ -1,8 +1,273 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<title>Sight Seer!</title>
+@{ Layout = "~/Views/Shared/_Layout.cshtml";}
+@model SightSeerDemo.ViewModels.HomeViewModel
+
+@section Scripts {
+    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link href="~/css/lightslider.min.css" rel="stylesheet" />
+<script src="~/lib/lightslider.min.js"></script>
+<style>
+
+    #myMap {
+        width: 100%;
+        min-width: 400px;
+        height: 600px;
+        margin-right: 0px;
+        float: right;
+        margin-left: 15px;
+    }
+
+    /*begin image slider style*/
+
+    .ImageSlider {
+        width: 350px;
+        margin-top: -30px;
+        padding-left: 15px;
+        padding-bottom: 0px;
+    }
+
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        display: block;
+        float: left;
+        margin-right: 6px;
+        cursor: pointer;
+    }
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
+</style>
+<div class="text-center" id="spinner" style="margin-bottom: 20px; margin-top: -5px;">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </div>
+<!-- Outer Most 2 Column -->
+<div class="row">
+    <!-- Left Column -->
+    <div class="col-md-7" style="overflow-y: auto; height: 600px;">
+        <!-- Left Column First Row -->
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead">Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></p>
+                <p>
+                    This site demonstrates using Azure Maps with the Bing Web Search API from Azure Cognitive Services.
+                    In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
+                    through the stops, the app queries the Bing Web Search to return information about the stop, which includes
+                    web results and images.
+                    Check out the accompanying blog post
+                    <a href="http://www.patrickgoode.com">https://www.patrickgoode.com</a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" class="btn-primary" value="Next Stop" id="NextStopBtn" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5">
+                <!-- Tour Stop Info -->
+                <div class="item row">
+                    <div class="desc col-md-8 col-12">
+                        <h5 class="text-bold title" id="tourStopName">Chicago Pizza</h5>
+                        <span id="tourStopAddress"> 909 E Wilson St, Batavia, IL, 60510</span>
+                        <br><a href="undefined" class="arrowLink">See more on Bing</a>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row ImageSlider ">
+                    <!-- Image slider -->
+                    <div class="ImageSlider">
+                        <ul id="lightSlider">
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- Search Results -->
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <!-- Right Column -->
+    <div class="col-md-5">
+
+        <div class="row">
+            <div id="myMap"></div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+
+    var map, pin, datasource;
+    var CurrentTourStop = 0;
+    var TourStops;
+
+    $(document).ready(function () {
+       $('#lightSlider').lightSlider({
+            gallery: true,
+            item: 1,
+            loop:true,
+            slideMargin: 0,
+            thumbItem: 9
+        });
+       $("#spinner").hide();
+          $.ajax({
+                type: "GET",
+                url: "Home/GetTourStopsJson",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    TourStops  = result;
+                    GetMap();
+                },
+                failure: function(response) {
+                    alert(response.d);
+                }
+       });
+
+    });
+
+    $("#NextStopBtn").click(function () {
+
+        var thisTourStop = TourStops[CurrentTourStop];
+
+    });
+
+    function GetMap() {
+        //Initialize a map instance.
+        map = new atlas.Map('myMap', {
+            center: [ -87.622519,41.882343],
+            zoom: 13,
+            view: 'Auto',
+
+            //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+            authOptions: {
+                authType: 'subscriptionKey',
+                subscriptionKey: '@Model.MapAPIKey'
+            }
+        });
+
+         @for (int i = 0; i < Model.TourStops.Count ; i++)
+        {
+            var tourStop = Model.TourStops[i];
+             @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', @i+1)
+        }
+    }
+
+     function showResultsOnMap(lat, dlong, name, index) {
+        //  map.markers.clear();
+
+        //Create an HTML marker and add it to the map.
+        var marker = new atlas.HtmlMarker({
+            color: 'DodgerBlue',
+            text: index,
+            position: [ dlong, lat],
+            popup: new atlas.Popup({
+                content: "<div style='padding:10px'>" + name + "</div>",
+                pixelOffset: [0, -30]
+            })
+        });
+
+        map.markers.add(marker);
+
+        //Add a click event to toggle the popup.
+        map.events.add('click', marker, () => {
+            marker.togglePopup();
+        });
+
+    }
+</script>

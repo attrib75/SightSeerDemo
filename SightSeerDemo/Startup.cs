@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SightSeerDemo.Models;
 
-namespace SightSeerDemo
+namespace SightSeerDemoDemo
 {
     public class Startup
     {
@@ -23,6 +24,8 @@ namespace SightSeerDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
