@@ -123,7 +123,9 @@ namespace SightSeerDemo.DAL
             client.Endpoint = "https://northcentralus.api.cognitive.microsoft.com/";
             try
             {
-                var imageResults = client.Images.SearchAsync(query: searchTerm, count: 5, safeSearch: "Strict").Result;
+                var imageResults =
+                    client.Images.SearchAsync(query: searchTerm, count: 5,
+                    safeSearch: "Strict", aspect: "Square", width: 220, imageType: "Photo").Result;
                 Console.WriteLine($"Search images for query {searchTerm}");
 
                 if (imageResults == null)
