@@ -81,6 +81,20 @@ namespace SightSeerDemo.Controllers
                 .GetRoute(LatLongs);
         }
 
+        public async Task<JsonResult> GetWebSearchResultsJson(string searchTerm)
+        {
+            BingSearchClient bingSearchClient = new BingSearchClient();
+            var searchResults = await bingSearchClient.WebSearchResultTypesLookup(AppSettings.BingAPIKey, searchTerm);
+            return Json(searchResults);
+        }
+
+        public JsonResult GetImageSearchResultsJson(string searchTerm)
+        {
+            BingSearchClient bingSearchClient = new BingSearchClient();
+            var searchResults = bingSearchClient.ImageSearch(AppSettings.BingAPIKey, searchTerm);
+            return Json(searchResults);
+        }
+
         public JsonResult GetTourStopsJson()
         {
             return Json(TourStops);
