@@ -132,11 +132,11 @@ namespace SightSeerDemo.Controllers
                  Name = "Navy Pier"
                },
                new TourStop{
-                 Address = "835 N Michigan Ave, Chicago, IL 60611",
+                 Address = "N Michigan Ave, Chicago, IL 60611",
                  LatLong = new LatLong{
-                 DLat = 41.8979303,
-                 DLong = -87.6228927, },
-                 Name = "Water Tower Place"
+                 DLat = 41.8948287,
+                 DLong = -87.6329721,},
+                 Name = "Magnificent Mile"
                },
             };
         }

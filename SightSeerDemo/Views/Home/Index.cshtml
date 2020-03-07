@@ -10,6 +10,11 @@
 }
 
 <style>
+    /*  web search results link styling   */
+    cs-demo-preview-web > a {
+        color: yellow;
+    }
+
     .carousel {
         margin-left: 20px;
         width: 220px;
@@ -25,6 +30,33 @@
     }
 </style>
 
+<!-- Modal -->
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+
+                    This site demonstrates using Azure Maps with the Bing Web Search API from Azure Cognitive Services.
+                    In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
+                    through the stops, the app queries the Bing Web Search API to return information about the stop, which includes
+                    web results and images. It also highlights the stop on the map
+                    Check out the accompanying blog post
+                    <a href="http://www.patrickgoode.com">https://www.patrickgoode.com</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Outer Most 2 Column -->
 <div class="row">
     <!-- Left Column -->
@@ -34,35 +66,7 @@
         <div class="row">
             <!-- Tour Stop Info -->
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="accordion" id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            What is this?
-                                        </button>
-                                    </h5>
-                                </div>
 
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p class="lead">Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></p>
-                                        <p>
-                                            This site demonstrates using Azure Maps with the Bing Web Search API from Azure Cognitive Services.
-                                            In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
-                                            through the stops, the app queries the Bing Web Search API to return information about the stop, which includes
-                                            web results and images. It also highlights the stop on the map
-                                            Check out the accompanying blog post
-                                            <a href="http://www.patrickgoode.com">https://www.patrickgoode.com</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <br />
@@ -108,47 +112,15 @@
         </div>
 
         <hr />
-        <br /><br />
-        <!-- Search Results -->
+
+        <!--Web Search Results -->
         <div id="searchResultsDiv">
             <div class="row ">
-                <div class="cs-demo-preview-web">
-                    <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                    <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                    <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                </div>
-            </div>
-            <br />
-            <div class="row ">
-                <div class="cs-demo-preview-web">
-                    <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                    <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                    <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                </div>
-            </div>
-            <br />
-            <div class="row ">
-                <div class="cs-demo-preview-web">
-                    <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                    <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                    <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                </div>
-            </div>
-            <br />
-            <div class="row ">
-                <div class="cs-demo-preview-web">
-                    <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                    <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                    <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                </div>
-            </div>
-            <br />
-            <div class="row ">
-                <div class="cs-demo-preview-web">
-                    <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                    <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                    <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                </div>
+                @*<div class="cs-demo-preview-web">
+                        <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                        <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                        <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+                    </div>*@
             </div>
             <br />
         </div>
@@ -208,74 +180,108 @@
             type: "GET",
             async: false,
             url: "Home/GetWebSearchResultsJson",
-            data: { searchTerm: thisTourStop.name  },
+            data: { searchTerm: thisTourStop.name + ' Chicago' },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
+                //Empty the image carousel
                 $(".carousel-inner").empty();
-                 $("#indicatorsLITargets").empty();
-                //display the image results
-                //if (result.images != null && result.images.value != null) {
-                //    $.each(result.images.value, function (iindex, ivalue) {
+                $("#indicatorsLITargets").empty();
 
-                //       $("#lightSlider").append( '' +
-                //                        '<li data-thumb="' + ivalue.thumbnailUrl + '&h=200">' +
-                //                        '<img src="' + ivalue.thumbnailUrl + '&h=200" /> ' +
-                //                        '</li>');
-                //    });
+                //Empty the web search results
+                $("#searchResultsDiv").empty();
 
-                //}
-                ////No image results, try Bing Image Search query
-                //else {
-                     $.ajax({
-                            type: "GET",
-                            async: false,
-                            url: "Home/GetImageSearchResultsJson",
-                            data: { searchTerm: result.queryContext.originalQuery },
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                         success: function (imageSearchResult) {
-                             var gotFirstOne = false; //mechanism to make the first image active
-                             for (var i = 0; i < imageSearchResult.value.length; i++) {
-                                 var ivalue = imageSearchResult.value[i];
-                                  var activeString = '';
-                                    if (!gotFirstOne) {
-                                        activeString = 'active';
-                                        gotFirstOne = true;
-                                    }
-                                    else {
-                                       activeString = '';
-                                    }
-                                    $(".carousel-inner").append(  '' +
-                                        '<div class="carousel-item '+ activeString +'">' +
-                                          '<img class="d-block w-200" src="' + ivalue.thumbnailUrl + '" /> ' +
-                                        '</div>');
+                //Update the web search results
+                UpdateWebSearchResults(result);
 
-                                    $("#indicatorsLITargets").append('<li data-target="#carouselIndicators" data-slide-to="'+ i +'" class="'+ activeString +'"></li>');
+                //Search the Bing Image API specifically for this search term.
+                //Resturns better images results
+                $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: "Home/GetImageSearchResultsJson",
+                    data: { searchTerm: result.queryContext.originalQuery },  //the original query is in the first search result
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (imageSearchResult) {
 
-                             }
-                             $.each(imageSearchResult.value, function (iindex, ivalue) {
+                        //Update the image carousel with the image search results
+                        UpdateCarousel(imageSearchResult);
 
-                                });
-                               $('.carousel').carousel('dispose');
-                               $('.carousel').carousel({
-                                  interval: 2000
-                                })
+                    },
+                    failure: function(response) {
+                        alert(response.d);
+                    }
+                })
+                    .done(function (response) {
+                     $("#spinner").hide();
+                    console.log('image search is done!');
 
-                              $("#spinner").hide();
-                              $("#tourStopName").text(TourStops[CurrentTourStop].name);
-                              $("#tourStopAddress").text(TourStops[CurrentTourStop].address);
-                            },
-                            failure: function(response) {
-                                alert(response.d);
-                            }
-                       });
-                //}
+                })
             },
             failure: function(response) {
                 alert(response.d);
             }
-       });
+        })
+            .done(function (response) {
+                    console.log('web search is done!');
+            });
+
+        //show the popup for this tour stop on the map
+        mapShowPopup(CurrentTourStop);
+    }
+
+ function UpdateWebSearchResults(result) {
+        if (result != null) {
+             $.each(result.webPages.value, function (index, searchResult) {
+
+           //<div class="cs-demo-preview-web">
+                //<div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                //<div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                //<div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            //</div>
+
+            $("#searchResultsDiv").append(  '' +
+                '<div class="cs-demo-preview-web">' +
+                    '<div><a style="font-size: large;" href="'+ searchResult.url +'" target="_blank" data-event="area-products-demo-clicked-searchresult">'+ searchResult.name  +'</a></div>' +
+                    '<div class="green-webpages-url">'+ searchResult.url +'</div>' +
+                    '<div></div><br />' +
+                '</div>');
+        });
+        }
+
+ }
+
+ //Update the image carousel with search result images
+ function UpdateCarousel(imageSearchResult) {
+        if (imageSearchResult != null && imageSearchResult.value != null) {
+               var gotFirstOne = false; //mechanism to make the first image active
+        for (var i = 0; i < imageSearchResult.value.length; i++) {
+            var ivalue = imageSearchResult.value[i];
+            var activeString = '';
+            if (!gotFirstOne) {
+                activeString = 'active';
+                gotFirstOne = true;
+            }
+            else {
+                activeString = '';
+            }
+            $(".carousel-inner").append(  '' +
+                '<div class="carousel-item '+ activeString +'">' +
+                    '<img class="d-block w-200" src="' + ivalue.thumbnailUrl + '" /> ' +
+                '</div>');
+
+            $("#indicatorsLITargets").append('<li data-target="#carouselIndicators" data-slide-to="'+ i +'" class="'+ activeString +'"></li>');
+
+        }
+
+        //rebuild the carousel to show the new images
+        $('.carousel').carousel('dispose');
+        $('.carousel').carousel({
+            interval: 2000
+        })
+        }
+
     }
 
  function GetTourStops() {
@@ -299,7 +305,7 @@
        });
     }
 
-    function GetMap() {
+ function GetMap() {
         //Initialize a map instance.
         map = new atlas.Map('myMap', {
             center: [ -87.622519,41.882343],
@@ -316,11 +322,25 @@
          @for (int i = 0; i < Model.TourStops.Count ; i++)
         {
             var tourStop = Model.TourStops[i];
-             @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', @i+1)
+             @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', '@tourStop.Address', @i+1)
         }
     }
 
- function showResultsOnMap(lat, dlong, name, index) {
+    function mapShowPopup(CurrentTourStop) {
+
+        for (var i = 0; i < map.markers.getMarkers().length; i++) {
+            var marker = map.markers.getMarkers()[i];
+            if (i == CurrentTourStop) {
+                  marker.togglePopup();
+            }
+            else {
+                marker.close();
+            }
+        }
+
+    }
+
+ function showResultsOnMap(lat, dlong, name, address, index) {
         //  map.markers.clear();
 
         //Create an HTML marker and add it to the map.
@@ -329,7 +349,14 @@
             text: index,
             position: [ dlong, lat],
             popup: new atlas.Popup({
-                content: "<div style='padding:10px'>" + name + "</div>",
+                content: ' ' +
+                '<div class="col-md-4">' +
+                        '<strong>'+ name +'</strong><br>' +
+    		        '<address>' +
+    			        address + '<br>' +
+    			        '<abbr title="Phone">P:</abbr> (+62) 856-1891-791' +
+    		        '</address>'+
+    	       '</div>',
                 pixelOffset: [0, -30]
             })
         });
