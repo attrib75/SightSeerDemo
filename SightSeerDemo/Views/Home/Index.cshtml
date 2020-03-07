@@ -9,16 +9,9 @@
 
 }
 
+<link href="~/css/lightslider.min.css" rel="stylesheet" />
+<script src="~/lib/lightslider.min.js"></script>
 <style>
-    /*  web search results link styling   */
-    cs-demo-preview-web > a {
-        color: yellow;
-    }
-
-    .carousel {
-        margin-left: 20px;
-        width: 220px;
-    }
 
     #myMap {
         width: 100%;
@@ -28,33 +21,38 @@
         float: right;
         margin-left: 15px;
     }
+
+    /*begin image slider style*/
+
+    .ImageSlider {
+        width: 350px;
+        margin-top: -30px;
+        padding-left: 15px;
+        padding-bottom: 0px;
+    }
+
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        display: block;
+        float: left;
+        margin-right: 6px;
+        cursor: pointer;
+    }
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
 </style>
-
-<!-- Modal -->
-<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-
-                    This site demonstrates using Azure Maps with the Bing Web Search API from Azure Cognitive Services.
-                    In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
-                    through the stops, the app queries the Bing Web Search API to return information about the stop, which includes
-                    web results and images. It also highlights the stop on the map
-                    Check out the accompanying blog post
-                    <a href="http://www.patrickgoode.com">https://www.patrickgoode.com</a>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+<div class="text-center" id="spinner" style="margin-bottom: 20px; margin-top: -5px;">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
     </div>
 </div>
 <!-- Outer Most 2 Column -->
@@ -62,78 +60,130 @@
     <!-- Left Column -->
     <div class="col-md-7" style="overflow-y: auto; height: 600px;">
         <!-- Left Column First Row -->
-
         <div class="row">
-            <!-- Tour Stop Info -->
-            <div class="col-md-6">
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <br />
-                        <h2 class="text-bold title" id="tourStopName">
-                        </h2>
-                        <span id="tourStopAddress"> </span>
+            <div class="col-md-12">
+                <p class="lead">Hey, its a  mashup by <a href="twitter.com/patrickgoode">@($"@PatrickGoode")!</a></p>
+                <p>
+                    This site demonstrates using Azure Maps with the Bing Web and Image Search APIs from Azure Cognitive Services.
+                    In our demo, we're going on a sightseeing tour. The tour stops are displayed on the map. Click next to go to your next tour stop.  As you move
+                    through the stops, the app queries the Bing Web Search to return information about the stop, which includes
+                    web results and images.  his site uses fake data and does not call out to the API.
+                    It exists to show the UI and serve as a visual reference to the accompanying blog post <a href="https://wp.me/p7Fl3T-ag">here</a>.
+                    The code is <a href="https://github.com/attrib75/APIMapMashup">posted on Github</a> so you can download it, get your own keys, and try it yourself.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" class="btn-primary" value="Next Stop" id="NextStopBtn" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5">
+                <!-- Tour Stop Info -->
+                <div class="item row">
+                    <div class="desc col-md-8 col-12">
+                        <h5 class="text-bold title" id="tourStopName">Chicago Pizza</h5>
+                        <span id="tourStopAddress"> 909 E Wilson St, Batavia, IL, 60510</span>
+                        <br><a href="undefined" class="arrowLink">See more on Bing</a>
                     </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <br />
-                        <input type="button" class="btn btn-primary btn-lg" value="Next Stop" id="NextStopBtn" />
-                    </div>
+                    <hr>
                 </div>
             </div>
-            <div class="col-md-6">
-
-                <!-- Image carousel  -->
-
-                <div id="carouselIndicators" class="carousel slide">
-                    <ol class="carousel-indicators" id="indicatorsLITargets">
-                        <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        @*<div class="carousel-item active">
-                                <img class="d-block w-100" src="https://loremflickr.com/200/200">
-                            </div>*@
+            <div class="col-md-5">
+                <div class="row ImageSlider ">
+                    <!-- Image slider -->
+                    <div class="ImageSlider">
+                        <ul id="lightSlider">
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
+                            </li>
+                            <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">
+                                <img src="https://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />
+                            </li>
+                        </ul>
                     </div>
-                    <!-- Carousel nav -->
-                    <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
             </div>
         </div>
-
-        <hr />
-
-        <!--Web Search Results -->
-        <div id="searchResultsDiv">
-            <div class="row ">
-                @*<div class="cs-demo-preview-web">
-                        <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                        <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                        <div>Get Beef and Bean Burritos Recipe from Food Network</div>
-                    </div>*@
+        <br />
+        <!-- Search Results -->
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
             </div>
-            <br />
         </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="cs-demo-preview-web">
+                <div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
+                <div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
+                <div>Get Beef and Bean Burritos Recipe from Food Network</div>
+            </div>
+        </div>
+        <br />
     </div>
-    <!-- Right Column (Map)-->
+    <!-- Right Column -->
     <div class="col-md-5">
 
         <div class="row">
-            <div class="text-center" id="spinner" style="margin-bottom: 20px; margin-top: -5px;">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
             <div id="myMap"></div>
         </div>
     </div>
@@ -144,168 +194,40 @@
     var map, pin, datasource;
     var CurrentTourStop = 0;
     var TourStops;
-    var slider;
-    $(document).ready(function () {
 
-        GetTourStops();
-        GetMap();
-        CurrentTourStop = -1;
-        ShowNextTourStopInfo();
+    $(document).ready(function () {
+       $('#lightSlider').lightSlider({
+            gallery: true,
+            item: 1,
+            loop:true,
+            slideMargin: 0,
+            thumbItem: 9
+        });
+       $("#spinner").hide();
+          $.ajax({
+                type: "GET",
+                url: "Home/GetTourStopsJson",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    TourStops  = result;
+                    GetMap();
+                },
+                failure: function(response) {
+                    alert(response.d);
+                }
+       });
 
     });
 
     $("#NextStopBtn").click(function () {
-        ShowNextTourStopInfo();
-    });
-
-    ///////////////////
-    // Show tour stops
-    ///////////////////
-    function ShowNextTourStopInfo() {
-        $("#spinner").show();
-          CurrentTourStop++;
-        //Proceed through the tour stops.  Start over when you reach the end
-        if (CurrentTourStop > 4) {
-            CurrentTourStop = 0;
-        }
 
         var thisTourStop = TourStops[CurrentTourStop];
-        //update display
-        $("#tourStopName").text(thisTourStop.name);
-        $("#tourStopAddress").text(thisTourStop.address);
 
-        //Get web search results for tour stop
+    });
 
-        $.ajax({
-            type: "GET",
-            async: false,
-            url: "Home/GetWebSearchResultsJson",
-            data: { searchTerm: thisTourStop.name + ' Chicago' },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                //Empty the image carousel
-                $(".carousel-inner").empty();
-                $("#indicatorsLITargets").empty();
-
-                //Empty the web search results
-                $("#searchResultsDiv").empty();
-
-                //Update the web search results
-                UpdateWebSearchResults(result);
-
-                //Search the Bing Image API specifically for this search term.
-                //Resturns better images results
-                $.ajax({
-                    type: "GET",
-                    async: false,
-                    url: "Home/GetImageSearchResultsJson",
-                    data: { searchTerm: result.queryContext.originalQuery },  //the original query is in the first search result
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (imageSearchResult) {
-
-                        //Update the image carousel with the image search results
-                        UpdateCarousel(imageSearchResult);
-
-                    },
-                    failure: function(response) {
-                        alert(response.d);
-                    }
-                })
-                    .done(function (response) {
-                     $("#spinner").hide();
-                    console.log('image search is done!');
-
-                })
-            },
-            failure: function(response) {
-                alert(response.d);
-            }
-        })
-            .done(function (response) {
-                    console.log('web search is done!');
-            });
-
-        //show the popup for this tour stop on the map
-        mapShowPopup(CurrentTourStop);
-    }
-
- function UpdateWebSearchResults(result) {
-        if (result != null) {
-             $.each(result.webPages.value, function (index, searchResult) {
-
-           //<div class="cs-demo-preview-web">
-                //<div><a href="https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061" target="_blank" data-event="area-products-demo-clicked-searchresult">Beef and Bean Burritos Recipe | Ree Drummond | Food Network</a></div>
-                //<div class="green-webpages-url">https://www.foodnetwork.com/recipes/ree-drummond/beef-and-bean-burritos-recipe-1981061</div>
-                //<div>Get Beef and Bean Burritos Recipe from Food Network</div>
-            //</div>
-
-            $("#searchResultsDiv").append(  '' +
-                '<div class="cs-demo-preview-web">' +
-                    '<div><a style="font-size: large;" href="'+ searchResult.url +'" target="_blank" data-event="area-products-demo-clicked-searchresult">'+ searchResult.name  +'</a></div>' +
-                    '<div class="green-webpages-url">'+ searchResult.url +'</div>' +
-                    '<div></div><br />' +
-                '</div>');
-        });
-        }
-
- }
-
- //Update the image carousel with search result images
- function UpdateCarousel(imageSearchResult) {
-        if (imageSearchResult != null && imageSearchResult.value != null) {
-               var gotFirstOne = false; //mechanism to make the first image active
-        for (var i = 0; i < imageSearchResult.value.length; i++) {
-            var ivalue = imageSearchResult.value[i];
-            var activeString = '';
-            if (!gotFirstOne) {
-                activeString = 'active';
-                gotFirstOne = true;
-            }
-            else {
-                activeString = '';
-            }
-            $(".carousel-inner").append(  '' +
-                '<div class="carousel-item '+ activeString +'">' +
-                    '<img class="d-block w-200" src="' + ivalue.thumbnailUrl + '" /> ' +
-                '</div>');
-
-            $("#indicatorsLITargets").append('<li data-target="#carouselIndicators" data-slide-to="'+ i +'" class="'+ activeString +'"></li>');
-
-        }
-
-        //rebuild the carousel to show the new images
-        $('.carousel').carousel('dispose');
-        $('.carousel').carousel({
-            interval: 2000
-        })
-        }
-
-    }
-
- function GetTourStops() {
-         $.ajax({
-             type: "GET",
-            async: false,
-            url: "Home/GetTourStopsJson",
-            data: '',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                TourStops  = result;
-
-                $("#tourStopName").text(TourStops[0].name);
-                $("#tourStopAddress").text(TourStops[0].address);
-
-            },
-            failure: function(response) {
-                alert(response.d);
-            }
-       });
-    }
-
- function GetMap() {
+    function GetMap() {
         //Initialize a map instance.
         map = new atlas.Map('myMap', {
             center: [ -87.622519,41.882343],
@@ -322,27 +244,11 @@
          @for (int i = 0; i < Model.TourStops.Count ; i++)
         {
             var tourStop = Model.TourStops[i];
-             @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', '@tourStop.Address', @i+1)
+             @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', @i+1)
         }
     }
 
-    function mapShowPopup(CurrentTourStop) {
-
-        for (var i = 0; i < map.markers.getMarkers().length; i++) {
-            var marker = map.markers.getMarkers()[i];
-            if (i == CurrentTourStop) {
-                  marker.togglePopup();
-            }
-            else {
-                if (marker.options.popup) {
-                    marker.options.popup.close();
-                }
-            }
-        }
-
-    }
-
- function showResultsOnMap(lat, dlong, name, address, index) {
+     function showResultsOnMap(lat, dlong, name, index) {
         //  map.markers.clear();
 
         //Create an HTML marker and add it to the map.
@@ -351,14 +257,7 @@
             text: index,
             position: [ dlong, lat],
             popup: new atlas.Popup({
-                content: ' ' +
-                '<div class="col-md-4">' +
-                        '<strong>'+ name +'</strong><br>' +
-    		        '<address>' +
-    			        address + '<br>' +
-    			        '<abbr title="Phone">P:</abbr> (+62) 856-1891-791' +
-    		        '</address>'+
-    	       '</div>',
+                content: "<div style='padding:10px'>" + name + "</div>",
                 pixelOffset: [0, -30]
             })
         });
