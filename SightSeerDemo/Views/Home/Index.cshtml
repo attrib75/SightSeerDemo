@@ -334,7 +334,9 @@
                   marker.togglePopup();
             }
             else {
-                marker.close();
+                if (marker.options.popup) {
+                    marker.options.popup.close();
+                }
             }
         }
 
