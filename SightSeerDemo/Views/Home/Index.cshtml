@@ -143,7 +143,7 @@
 
 <script type='text/javascript'>
 
-    var map, pin, datasource;
+    var map, pin, datasource, controls = [];
     var CurrentTourStop = 0;
     var TourStops;
     var slider;
@@ -326,7 +326,19 @@
             var tourStop = Model.TourStops[i];
              @:showResultsOnMap(@tourStop.LatLong.DLat, @tourStop.LatLong.DLong, '@tourStop.Name', '@tourStop.Address', @i+1)
         }
+        map.events.add('ready', addControls);
+
     }
+
+    function addControls() {
+    //Remove all controls on the map.
+    map.controls.remove(controls);
+
+    //Construct a zoom control and add it to the map.
+    map.controls.add(new atlas.control.ZoomControl(), {
+        position: 'bottom-right'
+    });
+ }
 
     function mapShowPopup(CurrentTourStop) {
 
